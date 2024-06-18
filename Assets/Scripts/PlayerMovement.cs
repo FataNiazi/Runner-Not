@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float playerSpeed;
     private Vector3 targetPos;
     private Vector3 velocity = Vector3.zero;
+    private bool isMoving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
             if (xPositionIndexInput > 0)
             {
                 --xPositionIndexInput;
+                isMoving = true;
             }
         }
 
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
             if (xPositionIndexInput < 4)
             {
                 ++xPositionIndexInput;
+                isMoving = true;
             }
         }
 
@@ -46,9 +49,19 @@ public class PlayerMovement : MonoBehaviour
         //    _animator.SetTrigger(JUMP);
         //}
 
-        targetPos = new Vector3(xPositionList[xPositionIndexInput], transform.position.y, transform.position.z);
+        if (isMoving) {
 
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 15 * Time.deltaTime);
+            targetPos = new Vector3(xPositionList[xPositionIndexInput], transform.position.y, transform.position.z);
+
+            transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 15 * Time.deltaTime);
+        }
+
+        if ((xPositionList[xPositionIndexInput] - 0.01f < transform.position.x) &&
+            (transform.position.x  < xPositionList[xPositionIndexInput] + 0.01f))
+        {
+            transform.position = new Vector3(xPositionList[xPositionIndexInput], transform.position.y, transform.position.z);
+            isMoving = false;
+        }
 
         //if (transform.position.y > -3.21)
         //{
