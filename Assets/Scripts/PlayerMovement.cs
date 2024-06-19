@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position += new Vector3(0f, 0f, Time.deltaTime * playerSpeed);
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (PlayerInputController.MoveLeft)
         {
             if (xPositionIndexInput > 0)
             {
@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
                 isMoving = true;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.D))
+    
+        if (PlayerInputController.MoveRight)
         {
             if (xPositionIndexInput < 4)
             {
