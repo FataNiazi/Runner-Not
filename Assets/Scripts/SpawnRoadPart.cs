@@ -11,13 +11,22 @@ public class SpawnRoadPart : MonoBehaviour
     [SerializeField] private GameObject partToSpawn;
 
     private Vector3 lastEndPosition;
-    private Vector3 spawnPosition;
     private bool spawned;
+    private float xToSpawn;
+    private float yToSpawn;
+
+
+    //Last end position and its getter method
+    private Vector3 spawnPosition;
+    public object LastSpawnedRoadPart { get { return lastEndPosition; }}
 
     // Start is called before the first frame update
     void Awake()
     {
         ResetEndPoint();
+        //GetLastRoadSpawned.LastRoadSpawnedPos =
+        //    roadSectionStart.GetComponent<Transform>().position;
+        xToSpawn = roadSectionStart.GetComponent<Transform>().position.x;
     }
 
     // Update is called once per frame
@@ -31,12 +40,16 @@ public class SpawnRoadPart : MonoBehaviour
 
     IEnumerator SpawnSection()
     {
-        spawnPosition = new Vector3(roadSectionStart.GetComponent<Transform>().position.x, roadSectionStart.GetComponent<Transform>().position.y, lastEndPosition.z);
-        GameObject lastSectionTransform = Instantiate(partToSpawn, spawnPosition, Quaternion.identity);
+        spawnPosition = new Vector3(xToSpawn, yToSpawn, lastEndPosition.z);
+        GameObject lastSection = Instantiate(partToSpawn, spawnPosition, Quaternion.identity);
+        //lastSection.GetComponent<SpawnTraffic>().hasTraffic = false;
+
         //spawned = true;
+
         yield return null;
         //lastSectionTransform.GetComponent<LevelDestroy>().destroyable = true;
-        lastEndPosition = lastSectionTransform.GetComponent<Transform>().Find("TheEndPoint").position;
+        lastEndPosition = lastSection.GetComponent<Transform>().Find("TheEndPoint").position;
+
         //spawned = false;
         yield return new WaitForSeconds(1f);
 

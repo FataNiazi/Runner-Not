@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerInputController : MonoBehaviour
 {
     private static bool moveLeft = false;
-    private static bool moveRight = false;
+    public static bool MoveLeft { get { return moveLeft; } set { } }
 
-    public static bool MoveLeft { get { return moveLeft; } set {} }
+    private static bool moveRight = false;
     public static bool MoveRight { get { return moveRight; } set { } }
+
+    private static bool moveJump = false;
+    public static bool MoveJump { get { return moveJump; } set { } }
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +37,15 @@ public class PlayerInputController : MonoBehaviour
         else
         {
             moveRight = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            moveJump = true;
+        }
+        else
+        {
+            moveJump = false;
         }
 
     }

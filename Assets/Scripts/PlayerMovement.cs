@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float[] xPositionList = { 2.5f, 7.5f, 11.25f, 15f, 20f };
+    private static float[] xPositionList = { 2.5f, 7.5f, 11.25f, 15f, 20f };
+    public static float[] XPositionsList { get { return xPositionList; } }
+
     [SerializeField]
     private int xPositionIndexInput = 0;
     [SerializeField]
@@ -43,11 +45,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    _animator.ResetTrigger(JUMP);
-        //    _animator.SetTrigger(JUMP);
-        //}
 
         if (isMoving) {
 
