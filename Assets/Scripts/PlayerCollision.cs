@@ -21,7 +21,7 @@ public class PlayerCollision : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             Debug.Log("hit");
-            gameObject.GetComponentInParent<PlayerMovement>().enabled = false;
+            //gameObject.GetComponentInParent<PlayerMovement>().enabled = false;
         }
     }
 }

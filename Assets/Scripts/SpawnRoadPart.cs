@@ -20,43 +20,31 @@ public class SpawnRoadPart : MonoBehaviour
     private Vector3 spawnPosition;
     public object LastSpawnedRoadPart { get { return lastEndPosition; }}
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Start()
     {
-        ResetEndPoint();
-        //GetLastRoadSpawned.LastRoadSpawnedPos =
-        //    roadSectionStart.GetComponent<Transform>().position;
         xToSpawn = roadSectionStart.GetComponent<Transform>().position.x;
+        yToSpawn = roadSectionStart.GetComponent<Transform>().position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(player.GetComponent<Transform>().position, lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART && spawned == false)
+        transform.position += new Vector3(0, 0, Time.deltaTime * -15);
+
+        if (spawned == false && transform.position.z < -10)
         {
-            StartCoroutine(SpawnSection());
+            spawnPosition = new Vector3(xToSpawn, yToSpawn, 35);
+            GameObject lastSection = Instantiate(partToSpawn, spawnPosition, Quaternion.identity);
+
+            lastEndPosition = lastSection.GetComponent<Transform>().Find("TheEndPoint").position;
+
+            spawned = true;
         }
-    }
-
-    IEnumerator SpawnSection()
-    {
-        spawnPosition = new Vector3(xToSpawn, yToSpawn, lastEndPosition.z);
-        GameObject lastSection = Instantiate(partToSpawn, spawnPosition, Quaternion.identity);
-        //lastSection.GetComponent<SpawnTraffic>().hasTraffic = false;
-
-        //spawned = true;
-
-        yield return null;
-        //lastSectionTransform.GetComponent<LevelDestroy>().destroyable = true;
-        lastEndPosition = lastSection.GetComponent<Transform>().Find("TheEndPoint").position;
-
-        //spawned = false;
-        yield return new WaitForSeconds(1f);
-
     }
 
     public void ResetEndPoint()
     {
-        lastEndPosition = roadSectionStart.GetComponent<Transform>().Find("TheEndPoint").position;
+        lastEndPosition = this.GetComponent<Transform>().Find("TheEndPoint").position;
     }
+
 }

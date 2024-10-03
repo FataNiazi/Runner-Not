@@ -11,7 +11,7 @@ public class PlayerJumpTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        jumpAnimator = GetComponent<Animator>();
+        jumpAnimator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,6 +19,7 @@ public class PlayerJumpTrigger : MonoBehaviour
     {
         if (PlayerInputController.MoveJump)
         {
+            Debug.Log("hehe");
             jumpAnimator.SetTrigger("JumpTrigger");
         }
     }

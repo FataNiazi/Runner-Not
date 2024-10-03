@@ -19,8 +19,7 @@ public class DestroyRoadPart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerZ = player.position.z;
-        if (endPointZ - playerZ < -50)
+        if (transform.position.z < -50)
         {
             Destroy(gameObject);
         }

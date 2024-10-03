@@ -25,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        transform.position += new Vector3(0f, 0f, Time.deltaTime * playerSpeed);
-
         if (PlayerInputController.MoveLeft)
         {
             if (xPositionIndexInput > 0)
